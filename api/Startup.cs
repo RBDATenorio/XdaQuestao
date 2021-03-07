@@ -29,6 +29,7 @@ namespace api
         {
             services.AddDbContext<DataContext> 
                 (x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IApiRepository, ApiRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
         }

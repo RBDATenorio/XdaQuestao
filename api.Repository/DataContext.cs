@@ -13,6 +13,7 @@ namespace api.Repository
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<CadernoQuestao> CadernosQuestaos { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {

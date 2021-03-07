@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Questao } from '../_models/Questao';
+import { QuestaoService } from '../_services/questao.service';
 
 @Component({
   selector: 'app-questoes',
@@ -8,21 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestoesComponent implements OnInit {
 
-  questoes: any = [];
+  questoes!: Questao[];
   pag: number = 1;
   contador: number = 1;
   totQuestoes!: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(private questaoService: QuestaoService) { }
 
   ngOnInit(): void {
     this.getQuestoes();
   }
 
   getQuestoes() {
-    this.http.get('http://localhost:5000/api/values').subscribe(
-      response => { 
-        this.questoes = response,
+    this.questaoService.getAllQuestao().subscribe(
+      ( _questaos: Questao[]) => { 
+        this.questoes = _questaos,
         this.totQuestoes = this.questoes.length
       },
       

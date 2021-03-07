@@ -18,7 +18,9 @@ namespace api.Domain
         public string AlternativaD { get; set; }
         public string AlternativaE { get; set; }
         public string Resposta { get; set; }
-        public List<CadernoQuestao> CadernosQuestaos { get; set; }
+        public List<Comentario> Comentarios { get; set; }
+        public List<CadernoQuestao> CadernoQuestaos { get; set; }
+
         
         //comentario de alunos 
     }

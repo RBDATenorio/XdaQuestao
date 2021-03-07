@@ -9,7 +9,7 @@ using api.Repository;
 namespace api.Repository.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210307032956_init")]
+    [Migration("20210307191231_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,26 @@ namespace api.Repository.Migrations
                     b.HasIndex("QuestaoId");
 
                     b.ToTable("CadernosQuestaos");
+                });
+
+            modelBuilder.Entity("api.Domain.Comentario", b =>
+                {
+                    b.Property<int>("ComentarioId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Assunto");
+
+                    b.Property<DateTime>("Data");
+
+                    b.Property<int>("QuestaoId");
+
+                    b.Property<int>("UsuarioId");
+
+                    b.HasKey("ComentarioId");
+
+                    b.HasIndex("QuestaoId");
+
+                    b.ToTable("Comentarios");
                 });
 
             modelBuilder.Entity("api.Domain.Questao", b =>
@@ -120,7 +140,7 @@ namespace api.Repository.Migrations
 
             modelBuilder.Entity("api.Domain.Caderno", b =>
                 {
-                    b.HasOne("api.Domain.Aluno", "Aluno")
+                    b.HasOne("api.Domain.Aluno")
                         .WithMany("Cadernos")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -129,12 +149,20 @@ namespace api.Repository.Migrations
             modelBuilder.Entity("api.Domain.CadernoQuestao", b =>
                 {
                     b.HasOne("api.Domain.Caderno", "Caderno")
-                        .WithMany("CadernosQuestaos")
+                        .WithMany("CadernoQuestaos")
                         .HasForeignKey("CadernoId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("api.Domain.Questao", "Questao")
-                        .WithMany("CadernosQuestaos")
+                        .WithMany("CadernoQuestaos")
+                        .HasForeignKey("QuestaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("api.Domain.Comentario", b =>
+                {
+                    b.HasOne("api.Domain.Questao")
+                        .WithMany("Comentarios")
                         .HasForeignKey("QuestaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

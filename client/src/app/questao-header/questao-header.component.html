@@ -1,6 +1,6 @@
 <div class="container">
 <div>
-    Questão {{ numDaQuestao }} de {{ totalQuestoes }}
+    <u>Questão {{ numDaQuestao }} de {{ totalQuestoes }}</u>
     <br>
     Disciplina: {{ titulo.disciplina }}
     <br>
@@ -12,15 +12,49 @@
         Banca: {{ titulo.banca }} - Órgão: {{ titulo.orgao }} - Ano: {{ titulo.ano }}
     </div>
     <div class="col-1">
-        prof
+        <button class="btn btn-default" (click)="mostrarComentarioProfessor()" tooltip="Comentário do Professor">
+            <i class="fa fa-address-book"></i>
+        </button>
     </div>
     <div class="col-1">
-        alunos
+        <button class="btn btn-default" (click)="mostrarComentarioAlunos()" tooltip="Comentários dos Alunos">
+            <i class="far fa-address-book"></i>
+        </button>        
     </div>
     <div class="col-1">
-        aula
+        <button class="btn btn-default" tooltip="Aula">
+            <i class="fas fa-book-open"></i>
+        </button>        
     </div>
     <hr> 
 </div>
-
+<div *ngIf="comentarioProfessor">
+    <hr>
+        <h5>Comentário do Professor</h5>
+        <span *ngIf="titulo.comentarioProfessor">{{ titulo.comentarioProfessor }}</span>
+        <span *ngIf="!titulo.comentarioProfessor">Nenhum Professor respondeu essa questão</span>
+</div>
+<div *ngIf="comentarioAlunos">
+    <hr>
+        <h5>Comentários dos Alunos</h5>
+        <div *ngIf="titulo.comentarios">
+            <div class="row" *ngFor="let comentario of titulo.comentarios">
+                <div class="col-9 mt-2">
+                    Aluno: <strong>Nome do Aluno</strong>
+                </div>
+                <div class="col-9">
+                    Data: {{ comentario.data }}
+                </div>
+                <div class="col-9 mt-2 mb-2">
+                    {{ comentario.assunto }}
+                </div>
+                
+            </div>
+            <hr>
+        </div>
+        <span *ngIf="!titulo.comentarios">Inicie uma discussão</span>
+        <div class="mt-2">
+            <button type="button" class="btn btn-success">Comentar</button>
+        </div>        
+</div>
 </div>

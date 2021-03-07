@@ -50,6 +50,28 @@ namespace api.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comentarios",
+                columns: table => new
+                {
+                    ComentarioId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Assunto = table.Column<string>(nullable: true),
+                    Data = table.Column<DateTime>(nullable: false),
+                    UsuarioId = table.Column<int>(nullable: false),
+                    QuestaoId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentarios", x => x.ComentarioId);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_Questaos_QuestaoId",
+                        column: x => x.QuestaoId,
+                        principalTable: "Questaos",
+                        principalColumn: "QuestaoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cadernos",
                 columns: table => new
                 {
@@ -101,12 +123,20 @@ namespace api.Repository.Migrations
                 name: "IX_CadernosQuestaos_QuestaoId",
                 table: "CadernosQuestaos",
                 column: "QuestaoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comentarios_QuestaoId",
+                table: "Comentarios",
+                column: "QuestaoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "CadernosQuestaos");
+
+            migrationBuilder.DropTable(
+                name: "Comentarios");
 
             migrationBuilder.DropTable(
                 name: "Cadernos");

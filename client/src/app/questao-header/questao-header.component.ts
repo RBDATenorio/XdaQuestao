@@ -10,10 +10,26 @@ export class QuestaoHeaderComponent implements OnInit {
   @Input() numDaQuestao!: number;
   @Input() totalQuestoes!: number;
   @Input() titulo!: any;
+  comentarioProfessor: boolean = false;
+  comentarioAlunos: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  mostrarComentarioProfessor () {
+    if (this.comentarioAlunos){
+      this.mostrarComentarioAlunos();
+    }
+    this.comentarioProfessor = !this.comentarioProfessor;
+  }
+
+  mostrarComentarioAlunos () {
+    if (this.comentarioProfessor){
+      this.mostrarComentarioProfessor();
+    }
+    this.comentarioAlunos = !this.comentarioAlunos;
   }
 
 }

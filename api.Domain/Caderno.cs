@@ -6,7 +6,7 @@ namespace api.Domain
     {
         public int CadernoId { get; set; }
         public int UsuarioId { get; set; }
-        public Aluno Aluno { get; set; }
-        public List<CadernoQuestao> CadernosQuestaos { get; set; }
+        public Aluno Aluno { get; }
+        public List<CadernoQuestao> CadernoQuestaos { get; set; }
     }
 }
