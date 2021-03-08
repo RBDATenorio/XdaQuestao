@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -19,7 +19,8 @@ import { NavComponent } from './nav/nav.component';
     AppComponent,
     QuestoesComponent,
     QuestaoHeaderComponent,
-    NavComponent
+    NavComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,8 @@ import { NavComponent } from './nav/nav.component';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    ReactiveFormsModule
 
   ],
   providers: [],

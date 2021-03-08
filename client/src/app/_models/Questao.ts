@@ -9,12 +9,12 @@ export interface Questao {
     assunto: string;  
     ano: string;  
     enunciado: string;  
-    comentarioProfessor: string;  
-    alternativaA: string;  
-    alternativaB: string;  
+    comentarioProfessor?: string;  
+    alternativaA?: string;  
+    alternativaB?: string;  
     alternativaC: string;  
-    alternativaD: string;  
-    alternativaE: string;  
+    alternativaD?: string;  
+    alternativaE?: string;  
     resposta: string;  
     comentarios: Comentario[];
     cadernoQuestaos: Caderno[];

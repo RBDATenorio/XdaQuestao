@@ -23,4 +23,8 @@ export class QuestaoService {
   getQuestaoById(id: number): Observable<Questao> { 
     return this.http.get<Questao>(`${this.baseUrl}/${id}`);
   }
+
+  postQuestao(questao: Questao) { 
+    return this.http.post(this.baseUrl, questao);
+  }
 }

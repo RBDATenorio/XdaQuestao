@@ -1,33 +1,33 @@
-<div class="container">
-<div>
-    <u>Questão {{ numDaQuestao }} de {{ totalQuestoes }}</u>
-    <br>
-    Disciplina: {{ titulo.disciplina }}
-    <br>
-    Assunto: {{ titulo.assunto }}
-    <hr>
-</div>
-<div class="row">
-    <div class="col-9">
-        Banca: {{ titulo.banca }} - Órgão: {{ titulo.orgao }} - Ano: {{ titulo.ano }}
+<div class="container"> 
+    <div class="mt-5">
+        <u>Questão {{ numDaQuestao }} de {{ totalQuestoes }}</u>
+        <br>
+        Disciplina: {{ titulo.disciplina }}
+        <br>
+        Assunto: {{ titulo.assunto }}
+        <hr>
     </div>
-    <div class="col-1">
-        <button class="btn btn-default" (click)="mostrarComentarioProfessor()" tooltip="Comentário do Professor">
-            <i class="fa fa-address-book"></i>
-        </button>
+    <div class="row">
+        <div class="col-9">
+            Banca: {{ titulo.banca }} - Órgão: {{ titulo.orgao }} - Ano: {{ titulo.ano }}
+        </div>
+        <div class="col-1">
+            <button class="btn btn-default" (click)="mostrarComentarioProfessor()" tooltip="Comentário do Professor">
+                <i class="fa fa-address-book"></i>
+            </button>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-default" (click)="mostrarComentarioAlunos()" tooltip="Comentários dos Alunos">
+                <i class="far fa-address-book"></i>
+            </button>        
+        </div>
+        <div class="col-1">
+            <button class="btn btn-default" tooltip="Aula">
+                <i class="fas fa-book-open"></i>
+            </button>        
+        </div>
+        <hr> 
     </div>
-    <div class="col-1">
-        <button class="btn btn-default" (click)="mostrarComentarioAlunos()" tooltip="Comentários dos Alunos">
-            <i class="far fa-address-book"></i>
-        </button>        
-    </div>
-    <div class="col-1">
-        <button class="btn btn-default" tooltip="Aula">
-            <i class="fas fa-book-open"></i>
-        </button>        
-    </div>
-    <hr> 
-</div>
 <div *ngIf="comentarioProfessor">
     <hr>
         <h5>Comentário do Professor</h5>
@@ -54,7 +54,7 @@
         </div>
         <span *ngIf="!titulo.comentarios">Inicie uma discussão</span>
         <div class="mt-2">
-            <button type="button" class="btn btn-success">Comentar</button>
+            <button type="button" class="btn btn-outline-primary">Comentar</button>
         </div>        
 </div>
 </div>
