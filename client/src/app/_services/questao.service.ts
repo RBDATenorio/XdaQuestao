@@ -27,4 +27,12 @@ export class QuestaoService {
   postQuestao(questao: Questao) { 
     return this.http.post(this.baseUrl, questao);
   }
+  
+  putQuestao(questao: Questao) { 
+    return this.http.put(`${this.baseUrl}/${questao.questaoId}`, questao);
+  }
+
+  deleteQuestao(id: number) { 
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
 }

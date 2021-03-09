@@ -1,7 +1,10 @@
 <div class="container">
     <div class="container">
-        <button class="btn btn-outline-primary mt-3" (click)="adicionarQuestao()">Adicionar Questão</button>
+        <div class="btn-group">
+          <button class="btn btn-outline-primary mt-3 mr-1" (click)="adicionarQuestao()">Adicionar Questão</button>
+        </div>
         <div *ngIf="adicionar">
+          Adicionando
             <form [formGroup]="registerForm">
                 <div class="form-row mt-3">
                   <div class="form-group col-md-2">
@@ -152,10 +155,117 @@
         </div>
         </form>
         <br>
-        <div class="row container">
-            <button class="btn btn-outline-success col-2">Resolver</button>
-            <span class="col-2">Acertou</span>
+        <div class="btn-group container mb-3">
+            <button class="btn btn-outline-success col-2 mr-auto">Resolver</button>
+            <button class="btn btn-outline-warning col-2 " (click)="editarQuestao(questao)">Editar Questão</button>
+            <button class="btn btn-sm btn-danger col-2 ml-2" tooltip="Excluir" (click)="0">
+              <i class="fa fa-eraser"></i>
+            </button>
+            
         </div>
+        <div *ngIf="editar">
+          editando
+          <form [formGroup]="registerForm">
+              <div class="form-row mt-3">
+                <div class="form-group col-md-2">
+                  <label>Banca *</label>
+                  <input type="text" class="form-control"
+                        [ngClass]="{'is-invalid': registerForm.get('banca')!.errors && registerForm.get('banca')!.touched}"
+                        formControlName="banca">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>
+                </div>
+                <div class="form-group col-md-1">
+                  <label>Órgão *</label>
+                  <input type="text" class="form-control"
+                        [ngClass]="{'is-invalid': registerForm.get('orgao')!.errors && registerForm.get('orgao')!.touched}"
+                        formControlName="orgao">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>                  
+                <div class="form-group col-md-3">
+                  <label>Disciplina *</label>
+                  <input type="text" class="form-control" 
+                        [ngClass]="{'is-invalid': registerForm.get('disciplina')!.errors && registerForm.get('disciplina')!.touched}"
+                        formControlName="disciplina">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>                      
+                <div class="form-group col-md-5">
+                  <label>Assunto *</label>
+                  <input type="text" class="form-control"
+                        [ngClass]="{'is-invalid': registerForm.get('assunto')!.errors && registerForm.get('assunto')!.touched}"
+                        formControlName="assunto">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>    
+                <div class="form-group col-md-1">
+                  <label>Ano *</label>
+                  <input type="text" class="form-control" 
+                        [ngClass]="{'is-invalid': registerForm.get('ano')!.errors && registerForm.get('ano')!.touched}"
+                        formControlName="ano">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>                      
+              </div>  
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <label>Enunciado *</label>
+                  <input type="text" class="form-control" 
+                        [ngClass]="{'is-invalid': registerForm.get('enunciado')!.errors && registerForm.get('enunciado')!.touched}"
+                        formControlName="enunciado">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Alternativa A</label>
+                  <input type="text" class="form-control" formControlName="alternativaA">
+                </div>    
+                <div class="form-group col-md-12">
+                  <label>Alternativa B</label>
+                  <input type="text" class="form-control" formControlName="alternativaB">
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Alternativa C</label>
+                  <input type="text" class="form-control" formControlName="alternativaC">
+                </div> 
+                <div class="form-group col-md-12">
+                  <label>Alternativa D</label>
+                  <input type="text" class="form-control" formControlName="alternativaD">
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Alternativa E</label>
+                  <input type="text" class="form-control" formControlName="alternativaE">
+                </div>
+                <div class="form-group col-md-1">
+                  <label>Resposta *</label>
+                  <input type="text" class="form-control"
+                        [ngClass]="{'is-invalid': registerForm.get('resposta')!.errors && registerForm.get('resposta')!.touched}"
+                        formControlName="resposta">
+                  <div class="invalid-feedback">
+                    Campo Obrigatório
+                  </div>                    
+                </div>                                                              
+              </div>  
+            </form>
+            <br>
+            <button class="btn btn-secondary">
+              Fechar
+            </button>
+            <button class="btn btn-primary" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
+              Salvar Alterações
+            </button>
+            <br>
+            <br>
+            <!--<p>Form Value: {{ registerForm.value | json }}</p>
+            <p>Form Status: {{ registerForm.status | json }}</p>-->
+      </div>
     </div>
 
 <div class="text-right">
@@ -174,3 +284,29 @@
     Questão Salva com Sucesso!
   </div>
 </ng-template>
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Questão
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyDeletarQuestao}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+        			CANCELAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          			DELETAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
+</div>

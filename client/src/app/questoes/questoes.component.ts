@@ -16,10 +16,13 @@ export class QuestoesComponent implements OnInit {
   contador: number = 1;
   totQuestoes!: number;
   adicionar: boolean = false;
+  editar: boolean = false;
+  modoSalvar: string = 'post';
   questao!: Questao;
   acertou: boolean = false;
   registerForm!: FormGroup;
   modalRef!: BsModalRef;
+  bodyDeletarQuestao = '';
   
   constructor(private questaoService: QuestaoService,
               private modalService: BsModalService,
@@ -30,7 +33,17 @@ export class QuestoesComponent implements OnInit {
     this.validation();
   }
 
+  editarQuestao(questao: Questao) {
+    this.modoSalvar = 'put';
+    this.questao = Object.assign({}, questao);
+    this.registerForm.patchValue(this.questao);
+    this.editar = !this.editar;
+    
+  }
+
   adicionarQuestao() {
+    this.registerForm.reset();
+    this.modoSalvar = 'post';
     this.adicionar = !this.adicionar;
   }
 
@@ -53,15 +66,31 @@ export class QuestoesComponent implements OnInit {
 
   salvarAlteracao(template: TemplateRef<any>) {
     if(this.registerForm.valid){
-      this.questao = Object.assign({}, this.registerForm.value);
-      this.questaoService.postQuestao(this.questao).subscribe(
-        (novaQuestao) => {
-          this.openModal(template);
-          this.getQuestoes();
-        }, error => {
-          console.log(error);
-        }
-      );
+      if(this.modoSalvar === 'post'){
+        
+        this.questao = Object.assign({}, this.registerForm.value);
+        this.questaoService.postQuestao(this.questao).subscribe(
+          (novaQuestao) => {
+            this.openModal(template);
+            this.getQuestoes();
+          }, error => {
+            console.log(error);
+          }
+        );
+      } else {
+          
+          this.questao = Object.assign({id: this.questao.questaoId}, this.registerForm.value);
+//          console.log(this.questao);
+          this.questaoService.putQuestao(this.questao).subscribe(
+            () => {
+              this.getQuestoes();
+              this.openModal(template);
+            }, error => {
+              console.log(error);
+            }
+          );
+      }
+
     }
   }
 
@@ -80,6 +109,23 @@ export class QuestoesComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  excluirQuestao(questao: Questao, template: any) {
+    this.openModal(template);
+    this.questao = questao;
+    this.bodyDeletarQuestao = `Tem certeza que deseja excluir o Código: ${questao.questaoId}`;
+  }
+  
+  confirmeDelete(template: any) {
+    this.questaoService.deleteQuestao(this.questao.questaoId).subscribe(
+      () => {
+          template.hide();
+          this.getQuestoes();
+        }, error => {
+          console.log(error);
+        }
+    );
   }
 
 

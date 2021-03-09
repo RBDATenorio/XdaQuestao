@@ -41,7 +41,7 @@ namespace api.Controllers
         {
             try
             {
-                var results = await _context.Questaos.FirstOrDefaultAsync(x => x.QuestaoId == id);;
+                var results = await _context.Questaos.FirstOrDefaultAsync(x => x.QuestaoId == id);
                 return Ok(results);
             }
             catch (System.Exception)
